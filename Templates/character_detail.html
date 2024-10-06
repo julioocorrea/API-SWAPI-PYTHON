@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Personagem</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #FFD700;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .character-detail {
+            padding: 40px;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 30px;
+        }
+        .character-info p {
+            margin: 10px 0;
+            font-size: 20px;
+        }
+        .back-link, .favorite-button {
+            display: block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            padding: 12px;
+            border-radius: 5px;
+            transition: 0.3s;
+            cursor: pointer;
+            text-align: center;
+        }
+        .back-link:hover, .favorite-button:hover {
+            background: #FFD700;
+            color: #000;
+        }
+    </style>
+    <script>
+        function addFavorite() {
+            const characterIndex = "{{ character_index }}"; // Usando a variável do template para o índice
+
+            fetch('/add_favorite', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: 'characters',
+                    index: characterIndex
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message || "Erro ao adicionar aos favoritos.");
+            })
+            .catch(error => {
+                alert("Este item já está salvo como favorito.");
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="character-detail">
+        <h1>{{ character.name }}</h1>
+        <div class="character-info">
+            <p><strong>Altura:</strong> {{ character.height }} cm</p>
+            <p><strong>Peso:</strong> {{ character.mass }} kg</p>
+            <p><strong>Cor do cabelo:</strong> {{ character.hair_color }}</p>
+            <p><strong>Cor da pele:</strong> {{ character.skin_color }}</p>
+            <p><strong>Espécie:</strong> {{ character.species if character.species else "não identificado" }}</p>
+        </div>
+        <a href="#" class="favorite-button" onclick="addFavorite()">Adicionar aos Favoritos</a>
+        <a href="/characters" class="back-link">Voltar</a>
+    </div>
+</body>
+</html>

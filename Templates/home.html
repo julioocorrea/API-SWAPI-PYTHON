@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #FFD700;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        h1 {
+            text-align: center;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            display: none;
+        }
+        .menu {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-image: url("{{ url_for('static', filename='imagens/fundo.png') }}");
+            background-size: cover;
+            background-position: center;
+        }
+        a {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            text-decoration: none;
+            color: #FFD700;
+            font-size: 18px;
+            padding: 15px;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            margin: 10px 0;
+            transition: 0.2s;
+        }
+        a:hover {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFF;
+        }
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <video id="intro-video" autoplay muted onended="showContent()">
+        <source src="{{ url_for('static', filename='videos/videoAbertura.mp4') }}" type="video/mp4">
+        Seu navegador não suporta vídeos HTML5.
+    </video>
+    <h1>Menu Principal</h1>
+    <div class="menu">
+        <a href="/characters">Personagens</a>
+        <a href="/films">Filmes</a>
+        <a href="/starships">Naves</a>
+        <a href="/vehicles">Veículos</a>
+        <a href="/species">Espécies</a>
+        <a href="/planets">Planetas</a>
+        <a href="/favorites">Favoritos</a> <!-- Link para a rota de favoritos -->
+    </div>
+
+    <script>
+        // Verifica se o vídeo já foi exibido na sessão atual
+        if (sessionStorage.getItem('videoPlayed')) {
+            document.getElementById('intro-video').style.display = 'none';
+            showContent();
+        }
+
+        function showContent() {
+            document.getElementById('intro-video').style.display = 'none';
+            document.querySelector('h1').style.display = 'block';
+            document.querySelector('.menu').style.display = 'flex';
+            sessionStorage.setItem('videoPlayed', 'true'); // Marca o vídeo como exibido na sessão
+        }
+    </script>
+</body>
+</html>

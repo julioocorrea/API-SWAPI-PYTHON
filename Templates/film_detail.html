@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Filme</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #FFD700;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 36px;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(255, 215, 0, 0.8);
+        }
+        .card {
+            padding: 20px;
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            max-width: 900px;
+            width: 70%;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            margin-bottom: 20px;
+            word-wrap: break-word;
+        }
+        h2 {
+            margin-top: 10px;
+            font-size: 24px;
+            text-shadow: 1px 1px 3px rgba(255, 215, 0, 0.5);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        li {
+            margin: 8px 0;
+            font-size: 18px;
+            text-shadow: 1px 1px 2px rgba(255, 215, 0, 0.5);
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .back-link, .favorite-button {
+            text-decoration: none;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            padding: 12px;
+            border-radius: 5px;
+            transition: 0.3s;
+            text-align: center;
+            width: 150px;
+            margin: 5px 0;
+        }
+        .back-link:hover, .favorite-button:hover {
+            background: #FFD700;
+            color: #000;
+        }
+        .opening-crawl {
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            white-space: pre-line;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function addFavorite() {
+            const filmIndex = "{{ film_index }}"; // Usando a variável do template para o índice
+
+            fetch('/add_favorite', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: 'films',
+                    index: filmIndex
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erro ao adicionar aos favoritos');
+            })
+            .then(data => {
+                alert(data.message);  // Exibir mensagem de sucesso
+            })
+            .catch(error => {
+                alert(error.message);  // Exibir mensagem de erro
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>{{ film.title }}</h1>
+    
+    <div class="card">
+        <h2>Abertura</h2>
+        <div class="opening-crawl">
+            <p>{{ film.opening_crawl }}</p>
+        </div>
+        
+        <h2>Detalhes do Filme</h2>
+        <p><strong>Ano de Lançamento:</strong> {{ film.release_date }}</p>
+        <p><strong>Diretor:</strong> {{ film.director }}</p>
+        <p><strong>Produtor:</strong> {{ film.producer }}</p>
+        
+        <h2>Personagens</h2>
+        <ul>
+            {% for character in characters %}
+                <li>{{ character.name }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="button-container">
+        <a href="#" class="favorite-button" onclick="addFavorite()">Adicionar aos Favoritos</a>
+        <a href="/films" class="back-link">Voltar</a>
+    </div>
+</body>
+</html>
