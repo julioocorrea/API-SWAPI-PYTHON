@@ -43,15 +43,25 @@
         vehicles.html
         
         vehicle_detail.html
+        
         species.html
+        
         species_detail.html
+        
         planets.html
+        
         planet_detail.html
+        
         favorites.html
+        
     /static/
+    
         /imagens/
+        
             fundo.png
+            
         /videos/
+        
             videoAbertura.mp4
             
 
