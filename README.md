@@ -18,7 +18,7 @@
 
 5. Instale as dependências necessárias com o pip: "pip install Flask flask-caching aiohttp mysql-connector-python"
    
-6.a estrutura de pastas da sua aplicação deve ser assim:
+6. A estrutura de pastas da sua aplicação deve ser assim:
 
 /sua_aplicacao/
     app.py 
