@@ -20,48 +20,28 @@
    
 6. A estrutura de pastas da sua aplicação deve ser assim:
 
-/sua_aplicacao/
+/Estrutura/
 
     app.py 
-    
     /templates/
-    
         home.html
-        
         characters.html
-        
         character_detail.html
-        
         films.html
-        
         film_detail.html
-        
         starships.html
-        
         starship_detail.html
-        
         vehicles.html
-        
         vehicle_detail.html
-        
         species.html
-        
         species_detail.html
-        
         planets.html
-        
         planet_detail.html
-        
         favorites.html
-        
     /static/
-    
         /imagens/
-        
             fundo.png
-            
         /videos/
-        
             videoAbertura.mp4
             
 
