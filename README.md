@@ -3,10 +3,15 @@ Esta aplicação é um sistema web construído com Flask que permite aos usuári
 
 # Tecnologias Utilizadas
 Flask: Um framework web em Python que facilita o desenvolvimento de aplicações web.
+
 Flask-Caching: Extensão para Flask que fornece suporte ao cache, melhorando a eficiência da aplicação.
+
 aiohttp: Biblioteca para realizar requisições HTTP assíncronas, permitindo a busca eficiente de dados da API Star Wars.
+
 asyncio: Módulo para programação assíncrona em Python, utilizado para gerenciar chamadas assíncronas.
+
 mysql-connector-python: Biblioteca para conectar e interagir com bancos de dados MySQL.
+
 HTML/CSS: Para criar as interfaces de usuário e renderizar as páginas web.
 
 # Passo a Passo para ultilizar o sistema:
