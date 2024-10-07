@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favoritos Star Wars</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #FFD700;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        .header a {
+            margin-right: 20px;
+        }
+        h1 {
+            text-transform: uppercase;
+            text-align: center;
+            flex-grow: 1;
+            margin: 0;
+        }
+        #favorites {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .favorite {
+            margin: 15px;
+            padding: 20px;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            flex: 0 0 22%;
+            box-sizing: border-box;
+        }
+        .favorite h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        button {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #FFC107;
+        }
+        .back-link {
+            text-decoration: none;
+            color: #FFD700;
+            background-color: rgba(255, 215, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .back-link:hover {
+            background: #FFD700;
+            color: #000;
+        }
+        .delete-button {
+            background-color: #f44336; /* Vermelho para o botão de delete */
+        }
+        .delete-button:hover {
+            background-color: #e53935;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/" class="back-link">Voltar</a>
+        <h1>Favoritos Star Wars</h1>
+    </div>
+    <div id="favorites">
+        {% for favorite in favorites %}
+        <div class="favorite">
+            <h2>Tipo: {{ favorite.item_type | capitalize }}</h2>
+            <p><strong>Índice:</strong> {{ favorite.item_index }}</p>
+            <button onclick="window.location.href='/{{ favorite.item_type | lower }}/{{ favorite.item_index }}'">Ver detalhes</button>
+            <form action="/favorites/delete/{{ favorite.id }}" method="POST" style="display: inline;">
+                <button type="submit" class="delete-button">Deletar</button>
+            </form>
+        </div>
+        {% endfor %}
+        {% if favorites | length == 0 %}
+        <p>Você ainda não tem favoritos.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
