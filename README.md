@@ -29,9 +29,16 @@ Código:
     );
 
 
-6. Instale as dependências necessárias com o pip: "pip install Flask flask-caching aiohttp mysql-connector-python"
+6. Instale as dependências necessárias com o pip:
+
+Dependencias:
+
+    pip install Flask
+    pip install Flask-Caching
+    pip install aiohttp
+    pip install mysql-connector-python
    
-7. A estrutura de pastas da sua aplicação deve ser assim:
+8. A estrutura de pastas da sua aplicação deve ser assim:
 
 Estrutura:
 
