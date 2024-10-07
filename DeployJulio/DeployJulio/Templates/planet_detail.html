@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Planeta</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #FFD700;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 36px;
+            text-align: center;
+            text-shadow: 2px 2px 5px rgba(255, 215, 0, 0.8);
+        }
+        .card {
+            padding: 20px;
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            max-width: 900px;
+            width: 70%;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.7);
+            margin-bottom: 20px;
+            word-wrap: break-word;
+        }
+        h2 {
+            margin-top: 10px;
+            font-size: 24px;
+            text-shadow: 1px 1px 3px rgba(255, 215, 0, 0.5);
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+        }
+        li {
+            margin: 8px 0;
+            font-size: 18px;
+            text-align: center;
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+        .back-link, .favorite-button {
+            text-decoration: none;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+            padding: 12px;
+            border-radius: 5px;
+            transition: 0.3s;
+            text-align: center;
+            width: 150px; /* Largura fixa para o botão */
+            margin: 5px 0; /* Espaço entre os botões */
+        }
+        .back-link:hover, .favorite-button:hover {
+            background: #FFD700;
+            color: #000;
+        }
+    </style>
+    <script defer>
+        function addFavorite() {
+            const planetIndex = "{{ planet_index }}"; // Use a variável do template para o índice do planeta
+
+            fetch('/add_favorite', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    type: 'planets',
+                    index: planetIndex
+                })
+            })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Erro ao adicionar aos favoritos');
+            })
+            .then(data => {
+                alert(data.message);
+            })
+            .catch(error => {
+                alert(error.message);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>{{ planet.name }}</h1>
+    
+    <div class="card">
+        <h2>Detalhes do Planeta</h2>
+        <p><strong>Clima:</strong> {{ planet.climate }}</p>
+        <p><strong>Terreno:</strong> {{ planet.terrain }}</p>
+        <p><strong>Gravidade:</strong> {{ planet.gravity }}</p>
+        <p><strong>População:</strong> {{ planet.population }}</p>
+        <p><strong>Período de Rotação:</strong> {{ planet.rotation_period }} horas</p>
+        <p><strong>Período de Órbita:</strong> {{ planet.orbital_period }} dias</p>
+        <p><strong>Água:</strong> {{ planet.surface_water }}%</p>
+
+        <h2>Habitantes</h2>
+        <ul>
+            {% for inhabitant in planet.inhabitants %}
+                <li>{{ inhabitant }}</li>
+            {% endfor %}
+            {% if planet.inhabitants|length == 0 %}
+                <li>Não há habitantes conhecidos</li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <div class="button-container">
+        <a href="#" class="favorite-button" onclick="addFavorite()">Adicionar aos Favoritos</a>
+        <a href="/planets" class="back-link">Voltar</a>
+    </div>
+</body>
+</html>
