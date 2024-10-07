@@ -16,7 +16,7 @@ def create_connection():
             host='localhost',
             user='root',         # Seu nome de usuário
             password='123456',   # Sua senha
-            database='TESTEFABIANO'  # Nome do seu banco de dados
+            database='SWAPIPYTHON'  # Nome do seu banco de dados
         )
         print("Conexão com o MySQL bem-sucedida")
     except Error as e:
