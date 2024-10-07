@@ -33,7 +33,7 @@ Código:
    
 7. A estrutura de pastas da sua aplicação deve ser assim:
 
-Estrutura
+Estrutura:
 
     app.py 
     /templates/
