@@ -27,6 +27,8 @@ SWAPI_BASE_URLS = {
     'people': 'https://swapi.dev/api/people/',
     'films': 'https://swapi.dev/api/films/',
     'starships': 'https://swapi.dev/api/starships/',
+    'vehicles': 'https://swapi.dev/api/vehicles/',
+    'species': 'https://swapi.dev/api/species/'
 }
 
 async def fetch_data(session, url):
@@ -102,6 +104,77 @@ async def get_film(film_index):
         
         # Passar o índice do filme para o template
         return render_template('film_detail.html', film=film_data, characters=characters, film_index=film_index)
+
+@app.route('/starships', methods=['GET'])
+@cache.cached(timeout=120)  # Cache por 120 segundos
+async def get_starships():
+    async with aiohttp.ClientSession() as session:
+        data = await fetch_all_data(session, [SWAPI_BASE_URLS['starships']])
+        starships = data[0]['results']
+        return render_template('starships.html', starships=starships)
+
+@app.route('/starships/<int:starship_index>', methods=['GET'])
+@cache.cached(timeout=60)  # Cache por 60 segundos
+async def get_starship(starship_index):
+    async with aiohttp.ClientSession() as session:
+        data = await fetch_all_data(session, [SWAPI_BASE_URLS['starships']])
+        starships = data[0]['results']
+
+        if starship_index < 1 or starship_index > len(starships):
+            return jsonify({'error': 'Starship not found'}), 404
+
+        starship = starships[starship_index - 1]
+        return render_template('starship_detail.html', starship=starship, starship_index=starship_index)
+
+@app.route('/vehicles', methods=['GET'])
+@cache.cached(timeout=120)  # Cache por 120 segundos
+async def get_vehicles():
+    async with aiohttp.ClientSession() as session:
+        data = await fetch_all_data(session, [SWAPI_BASE_URLS['vehicles']])
+        vehicles = data[0]['results']
+        return render_template('vehicles.html', vehicles=vehicles)
+
+@app.route('/vehicles/<int:vehicle_index>', methods=['GET'])
+@cache.cached(timeout=60)  # Cache por 60 segundos
+async def get_vehicle(vehicle_index):
+    async with aiohttp.ClientSession() as session:
+        data = await fetch_all_data(session, [SWAPI_BASE_URLS['vehicles']])
+        vehicles = data[0]['results']
+
+        if vehicle_index < 1 or vehicle_index > len(vehicles):
+            return jsonify({'error': 'Veículo não encontrado'}), 404
+
+        vehicle = vehicles[vehicle_index - 1]
+        return render_template('vehicle_detail.html', vehicle=vehicle, vehicle_index=vehicle_index)
+
+@app.route('/species', methods=['GET'])
+@cache.cached(timeout=120)  # Cache por 60 segundos
+async def get_species():
+    async with aiohttp.ClientSession() as session:
+        data = await fetch_all_data(session, [SWAPI_BASE_URLS['species']])
+        species_list = data[0]['results']
+        return render_template('species.html', species_list=species_list)
+
+@app.route('/species/<int:species_index>', methods=['GET'])
+@cache.cached(timeout=60)  # Cache por 60 segundos
+async def get_species_by_id(species_index):
+    async with aiohttp.ClientSession() as session:
+        data = await fetch_all_data(session, [SWAPI_BASE_URLS['species']])
+        species = data[0]['results']
+
+        if species_index < 1 or species_index > len(species):
+            return jsonify({'error': 'Espécie não encontrada'}), 404
+
+        species_data = species[species_index - 1]
+
+        # Verificar se há um planeta associado
+        if 'homeworld' in species_data and species_data['homeworld']:
+            homeworld_data = await fetch_data(session, species_data['homeworld'])
+            species_data['homeworld_name'] = homeworld_data.get('name', 'Desconhecido')
+        else:
+            species_data['homeworld_name'] = 'Desconhecido'
+
+        return render_template('species_detail.html', species=species_data, species_index=species_index)
 
 if __name__ == '__main__':
     app.run(debug=True)

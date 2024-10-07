@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naves Star Wars</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #FFD700;
+            margin: 0;
+            padding: 20px;
+        }
+        .header {
+            display: flex;
+            align-items: center; /* Alinha verticalmente */
+            margin-bottom: 30px;
+        }
+        .header a {
+            margin-right: 20px; /* Espaço entre o botão e o título */
+            text-decoration: none;
+            color: #FFD700;
+            background-color: rgba(255, 215, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .header a:hover {
+            background: #FFD700;
+            color: #000;
+        }
+        h1 {
+            text-transform: uppercase;
+            text-align: center; /* Centraliza o texto do título */
+            flex-grow: 1; /* Faz o título ocupar o espaço restante */
+            margin: 0; /* Remove a margem */
+        }
+        #starships {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .starship {
+            margin: 15px;
+            padding: 20px;
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            flex: 0 0 22%;
+            box-sizing: border-box;
+        }
+        .starship h2 {
+            margin: 0;
+            font-size: 20px;
+        }
+        button {
+            background-color: #FFD700;
+            color: #000;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 15px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #FFC107;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/" class="back-link">Voltar</a>
+        <h1>Naves Star Wars</h1>
+    </div>
+    <div id="starships">
+        {% for starship in starships %}
+        <div class="starship">
+            <h2>{{ starship.name }}</h2>
+            <p><strong>Modelo:</strong> {{ starship.model }}</p>
+            <p><strong>Fabricante:</strong> {{ starship.manufacturer }}</p>
+            <p><strong>Classe:</strong> {{ starship.starship_class }}</p>
+            <button onclick="window.location.href='/starships/{{ loop.index }}'">Ver detalhes</button>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
