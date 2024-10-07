@@ -7,6 +7,8 @@
     
  4. Crie uma tabela favorites:
 
+Código:
+
     USE SWAPIPYTHON;
 
     CREATE TABLE favorites (
@@ -16,11 +18,11 @@
     );
 
 
-5. Instale as dependências necessárias com o pip: "pip install Flask flask-caching aiohttp mysql-connector-python"
+6. Instale as dependências necessárias com o pip: "pip install Flask flask-caching aiohttp mysql-connector-python"
    
-6. A estrutura de pastas da sua aplicação deve ser assim:
+7. A estrutura de pastas da sua aplicação deve ser assim:
 
-/Estrutura/
+Estrutura
 
     app.py 
     /templates/
