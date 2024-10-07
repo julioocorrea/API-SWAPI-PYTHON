@@ -9,7 +9,7 @@ asyncio: Módulo para programação assíncrona em Python, utilizado para gerenc
 mysql-connector-python: Biblioteca para conectar e interagir com bancos de dados MySQL.
 HTML/CSS: Para criar as interfaces de usuário e renderizar as páginas web.
 
-#Passos para Executar o Sistema
+# Passo a Passo para ultilizar o sistema:
  1. Certifique-se de que o Python 3.7 ou superior está instalado. Você pode verificar isso com o comando: python --version
     
  2. Certifique-se de que o MySQL está instalado e em execução.
