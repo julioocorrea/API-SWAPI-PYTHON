@@ -1,4 +1,15 @@
-# Passo a Passo
+# Resumo da Aplicação
+Esta aplicação é um sistema web construído com Flask que permite aos usuários explorar dados do universo Star Wars. Os usuários podem visualizar informações sobre personagens, filmes, naves, veículos, espécies e planetas, além de adicionar itens a uma lista de favoritos, que é armazenada em um banco de dados MySQL. A aplicação utiliza caching para melhorar o desempenho, reduzindo a carga nas requisições repetidas.
+
+# Tecnologias Utilizadas
+Flask: Um framework web em Python que facilita o desenvolvimento de aplicações web.
+Flask-Caching: Extensão para Flask que fornece suporte ao cache, melhorando a eficiência da aplicação.
+aiohttp: Biblioteca para realizar requisições HTTP assíncronas, permitindo a busca eficiente de dados da API Star Wars.
+asyncio: Módulo para programação assíncrona em Python, utilizado para gerenciar chamadas assíncronas.
+mysql-connector-python: Biblioteca para conectar e interagir com bancos de dados MySQL.
+HTML/CSS: Para criar as interfaces de usuário e renderizar as páginas web.
+
+#Passos para Executar o Sistema
  1. Certifique-se de que o Python 3.7 ou superior está instalado. Você pode verificar isso com o comando: python --version
     
  2. Certifique-se de que o MySQL está instalado e em execução.
